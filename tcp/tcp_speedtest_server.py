@@ -1,11 +1,13 @@
 import socket
 import time
 
+# Einrichtung Server
 server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 server.bind(('127.0.0.1', 9999))
 server.listen()
-server.settimeout(5)  # Set a timeout for server.accept()
+server.settimeout(5)  # Setzt ein timeout für server.accept()
 
+# Empfangsschlaufe
 while True:
     try:
         client, address = server.accept()
@@ -13,10 +15,10 @@ while True:
 
         for _ in range(100):
             client.send("Hello Client!".encode('utf-8'))
-            time.sleep(0.1)  # Introduce a short delay
+            time.sleep(0.1)  # kurzes delay
 
-            # Wait for a response from the client
-            client.settimeout(2)  # Set a timeout for client.recv()
+            # Wartet auf antwort von Client
+            client.settimeout(2)  # Setzt ein timeout für client.recv()
             try:
                 response = client.recv(1024).decode('utf-8')
                 print(f"Received from client: {response}")
@@ -27,4 +29,3 @@ while True:
 
     except socket.timeout:
         print("No connection within timeout")
-

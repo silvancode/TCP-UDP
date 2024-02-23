@@ -1,9 +1,11 @@
 import socket
 import time
 
+# Einrichtung Client
 client = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-client.settimeout(2)  # Set a timeout for recvfrom()
+client.settimeout(2)  # Setzt ein timeout für recvfrom()
 
+# Nachricht
 text = ('It is a truth universally acknowledged, that a single man '
         'in possession of a good fortune, must be in want of a wife. '
         'However little known the feelings or views of such a man '
@@ -19,17 +21,17 @@ text = ('It is a truth universally acknowledged, that a single man '
 
 start = time.time()
 
-# Send 100 messages
+# Sendet 100 Nachrichten
 for _ in range(100):
     client.sendto(text.encode('utf-8'), ("127.0.0.1", 9999))
 
-    # Receive and print responses
+    # Empfängt und gibt Antwort aus
     try:
         data, address = client.recvfrom(1024)
         print(f"Received from server: {data.decode('utf-8')}")
     except socket.timeout:
         print("Server did not respond within timeout")
 
+# Testresultat
 end = time.time()
 print(f"Time taken: {end - start}")
-

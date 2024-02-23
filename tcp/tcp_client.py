@@ -1,11 +1,9 @@
 import socket
-import time
 
+# Einrichtung Client
 client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-client.connect(('127.0.0.1', 9999))
+client.connect(('127.0.0.1', 9999))  # Verbindung
 
-start = time.time()
+# Datenaustausch
 client.send("Hello Server!".encode('utf-8'))
 print(client.recv(1024).decode('utf-8'))
-end = time.time()
-print(end - start)
